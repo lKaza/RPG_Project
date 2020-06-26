@@ -24,7 +24,9 @@ namespace RPG.Combat
 
             private void Update() {
                 timeSinceLastAttack +=Time.deltaTime;
-
+                if (target == null) return;
+                if (target.GetComponent<Health>().IsDead()) return;
+                
                 if(target != null){
 
                     GetComponent<Mover>().MoveTo(target.position);
@@ -40,6 +42,7 @@ namespace RPG.Combat
                         timeSinceLastAttack = 0;
                     }
                 }
+                
             }
         }
 
@@ -53,16 +56,19 @@ namespace RPG.Combat
                 
                 GetComponent<Scheduler>().StartAction(this);
                 target = combatTarget.transform;
+               
             }
+
             public void Disengage(){
                 if(target == null) return;
-            
+                myAnim.SetTrigger("stopAttacking");
                 target = null;
             }
 
             //Animation event
             void Hit(){
                     target.GetComponent<Health>().TakeDmg(weaponDmg);
+          
             }                   
         }
 }

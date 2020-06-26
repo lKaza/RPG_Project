@@ -13,7 +13,7 @@ namespace RPG.Control
         // Start is called before the first frame update
         void Start()
         {
-        
+            
         }
 
         private static Ray GetClickRay()
@@ -57,6 +57,7 @@ namespace RPG.Control
                 {
                 
                 GetComponent<Mover>().StartMoveAction(hit.point);
+                    
                 }
                 return true;
             }

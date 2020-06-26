@@ -10,6 +10,7 @@ namespace RPG.Core{
                 if(currentAction == action) return;
                 if(currentAction != null){
                 currentAction.Disengage();
+                
                 }
                 
                 currentAction = action;

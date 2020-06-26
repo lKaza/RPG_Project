@@ -32,11 +32,12 @@ public class Mover : MonoBehaviour, IAction
    
    public void StartMoveAction(Vector3 destination){
      GetComponent<Scheduler>().StartAction(this);
-       MoveTo(destination);
+       MoveTo(destination);          
    }
 
     public void MoveTo(Vector3 destination)
     {
+        
         navMesh.isStopped = false;
         navMesh.SetDestination(destination);
     }

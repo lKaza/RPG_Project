@@ -7,11 +7,14 @@ namespace RPG.Combat{
 
 public class Health : MonoBehaviour
 {
+        Animator myAnim;
         [SerializeField] int maxHealth=100;
         private int currentHealth;
+        bool isDead = false;
         // Start is called before the first frame update
         void Start()
         {
+            myAnim = GetComponent<Animator>();
             currentHealth = maxHealth;
         }
 
@@ -22,10 +25,21 @@ public class Health : MonoBehaviour
         }
         public void TakeDmg(int dmg)
         {
+            
             currentHealth = currentHealth - dmg;
-            if(currentHealth<=0){
-                print("me dead");
+            if(currentHealth<=0 && !isDead)
+            {
+                Die();
             }
+        }
+        public bool IsDead(){
+           return isDead;
+       }
+        private void Die()
+        {
+            
+            isDead = true;
+            myAnim.SetTrigger("isAlive");
         }
     }
 }
