@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
-namespace RPG.Combat{
+namespace RPG.Core{
 
 
 public class Health : MonoBehaviour
@@ -40,6 +41,7 @@ public class Health : MonoBehaviour
             
             isDead = true;
             myAnim.SetTrigger("isAlive");
+            GetComponent<Scheduler>().CancelCurrentAction();
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
 using System;
+using RPG.Core;
 
 namespace RPG.Control
 {
@@ -24,6 +25,7 @@ namespace RPG.Control
         // Update is called once per frame
         void Update()
         {
+            if (GetComponent<Health>().IsDead()) return;
             if(InteractWithCombat()) return;
             if(InteractWithMovement()) return;
             
@@ -36,12 +38,16 @@ namespace RPG.Control
             {
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
                 if (target == null) continue;
+
+                if(!GetComponent<Fighter>().CanAttack(target.gameObject))
                 {
+                    continue;
+                }
                     if(Input.GetMouseButtonDown(0)){
-                        GetComponent<Fighter>().Attack(target);                    
+                        GetComponent<Fighter>().Attack(target.gameObject);                    
                     }
                     return true;
-                }
+                
             }return false;
         }
 

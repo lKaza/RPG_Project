@@ -12,9 +12,14 @@ namespace RPG.Core{
                 currentAction.Disengage();
                 
                 }
+           
                 
                 currentAction = action;
              
+            }
+            public void CancelCurrentAction()
+            {
+                StartAction(null);
             }
         }
 }
