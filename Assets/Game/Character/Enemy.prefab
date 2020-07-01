@@ -39,7 +39,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce87be7037050724aafcfc8625afbd39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseRange: 5
+  chaseRange: 5.5
+  suspicionTime: 6
+  patrolPath: {fileID: 0}
+  waypointTolerance: 1
+  PatrolDwellTime: 5
+  patrolSpeedfraction: 0.25
 --- !u!114 &2616585514819967217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +129,16 @@ PrefabInstance:
     - target: {fileID: 4025358723685616024, guid: 9965326320481ff4d80588d18c7412d1,
         type: 3}
       propertyPath: maxHealth
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4025358723685616026, guid: 9965326320481ff4d80588d18c7412d1,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 5.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4025358723685616027, guid: 9965326320481ff4d80588d18c7412d1,
+        type: 3}
+      propertyPath: weaponDmg
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4025358723685616028, guid: 9965326320481ff4d80588d18c7412d1,
@@ -184,7 +199,7 @@ PrefabInstance:
     - target: {fileID: 4025358723685616030, guid: 9965326320481ff4d80588d18c7412d1,
         type: 3}
       propertyPath: m_Speed
-      value: 3.5
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4025358723685616031, guid: 9965326320481ff4d80588d18c7412d1, type: 3}

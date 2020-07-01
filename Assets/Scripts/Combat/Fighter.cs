@@ -28,7 +28,7 @@ namespace RPG.Combat
                 if (target == null) return;
                 if (target.GetComponent<Health>().IsDead()) return;
 
-                    GetComponent<Mover>().MoveTo(target.position);
+                    GetComponent<Mover>().MoveTo(target.position,1f);
                     float distance = Vector3.Distance(transform.position,target.position);
                     if(distance <=weaponRange)
                 {

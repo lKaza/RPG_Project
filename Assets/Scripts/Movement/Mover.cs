@@ -10,6 +10,7 @@ namespace RPG.Movement{
 public class Mover : MonoBehaviour, IAction
 {
     [SerializeField] Transform target;
+    [SerializeField] float maxSpeed = 5f;
     Animator myAnim;
     NavMeshAgent navMesh;
 
@@ -30,16 +31,18 @@ public class Mover : MonoBehaviour, IAction
     }
 
    
-   public void StartMoveAction(Vector3 destination){
+   public void StartMoveAction(Vector3 destination, float speedFraction){
      GetComponent<Scheduler>().StartAction(this);
-       MoveTo(destination);          
+     navMesh.speed = maxSpeed * Mathf.Clamp01(speedFraction);
+     MoveTo(destination,speedFraction);          
    }
 
-    public void MoveTo(Vector3 destination)
+    public void MoveTo(Vector3 destination, float speedFraction)
     {
-        
+        navMesh.speed = maxSpeed * Mathf.Clamp01(speedFraction);
         navMesh.isStopped = false;
         navMesh.SetDestination(destination);
+        
     }
 
     private void Animator()
