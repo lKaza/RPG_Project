@@ -72,7 +72,7 @@ namespace RPG.Control{
                     
                 }
                 nextPosition = GetCurrentWaypoint();
-                print(nextPosition);
+                
                
                 
             }

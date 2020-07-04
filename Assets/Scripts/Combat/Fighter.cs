@@ -75,6 +75,7 @@ namespace RPG.Combat
             public void Disengage()
         {
             if (target == null) return;
+           GetComponent<Mover>().Disengage();
             TriggerStopAttacking();
             target = null;
         }
