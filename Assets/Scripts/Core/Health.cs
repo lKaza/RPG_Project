@@ -1,22 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-
+using RPG.Saving;
 using UnityEngine;
 
 namespace RPG.Core{
 
 
-public class Health : MonoBehaviour
+public class Health : MonoBehaviour, ISaveable
 {
         Animator myAnim;
         [SerializeField] int maxHealth=100;
-        private int currentHealth;
+        public int currentHealth;
         bool isDead = false;
+
         // Start is called before the first frame update
-        void Start()
+    
+        private void Awake()
         {
-            myAnim = GetComponent<Animator>();
             currentHealth = maxHealth;
+            myAnim = GetComponent<Animator>();
         }
 
         // Update is called once per frame
@@ -30,6 +32,7 @@ public class Health : MonoBehaviour
             currentHealth = currentHealth - dmg;
             if(currentHealth<=0 && !isDead)
             {
+                myAnim.ResetTrigger("resurrect");
                 Die();
             }
         }
@@ -42,6 +45,26 @@ public class Health : MonoBehaviour
             isDead = true;
             myAnim.SetTrigger("isAlive");
             GetComponent<Scheduler>().CancelCurrentAction();
+        }
+
+        public object CaptureState()
+        {
+            
+            return currentHealth;
+        }
+
+        public void RestoreState(object state)
+        {
+            currentHealth = (int)state;
+            if(currentHealth>0){
+                isDead = false;
+                myAnim.SetTrigger("resurrect");
+            }
+            if (currentHealth <= 0 && !isDead)
+            {
+                myAnim.ResetTrigger("resurrect");
+                Die();
+            }
         }
     }
 }
