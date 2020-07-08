@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
+using RPG.Saving;
 
 namespace RPG.SceneManagement{
 
@@ -32,14 +33,18 @@ namespace RPG.SceneManagement{
         private IEnumerator Transition()
         {
             Fader fader = FindObjectOfType<Fader>();
-            
+            SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
             DontDestroyOnLoad(this.gameObject);
+           
             yield return StartCoroutine(fader.FadeOut(fadeInTime));
+            wrapper.Save();
             yield return SceneManager.LoadSceneAsync(sceneIndex);
-
+            
+            wrapper.Load();
+            
             Portal otherPortal = GetOtherPortal();          
             UpdatePlayer(otherPortal);
-
+            wrapper.Save();
             yield return new WaitForSeconds(blackscreenTime);
             yield return StartCoroutine(fader.FadeIn(fadeInTime));
             Destroy(this.gameObject);
