@@ -11,7 +11,8 @@ namespace RPG.Combat
             Animator myAnim;
             
             [SerializeField] float TimeBetweenAttacks = 1f; 
-            [SerializeField] Transform handTransform = null;
+            [SerializeField] Transform rightHandTransform = null;
+            [SerializeField] Transform leftHandTransform = null;
             [SerializeField] Weapon defaultWeapon = null;
            
 
@@ -91,13 +92,22 @@ namespace RPG.Combat
         //Animation event
         void Hit(){
             if(target == null) return;
-                target.GetComponent<Health>().TakeDmg(currentWeapon.GetWeaponDamage);       
+            if (currentWeapon.HasProjectile()){
+                currentWeapon.LaunchProjectile(leftHandTransform,rightHandTransform,target.transform);
+                
+            }else
+                target.GetComponent<Health>().TakeDmg(currentWeapon.GetWeaponDamage);
+
+                       
             }
+        void Shoot(){
+            Hit();
+        }
 
         public void EquipWeapon(Weapon weapon)
         {
             currentWeapon = weapon;
-            weapon.Spawn(handTransform,myAnim);
+            weapon.Spawn(leftHandTransform,rightHandTransform,myAnim);
 
         }
 

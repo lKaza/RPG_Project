@@ -2293,6 +2293,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 979e0a573d3434045bf0492c305936a3,
         type: 2}
+    - target: {fileID: 4025358723685616027, guid: 9965326320481ff4d80588d18c7412d1,
+        type: 3}
+      propertyPath: rightHandTransform
+      value: 
+      objectReference: {fileID: 4077472041836934144}
+    - target: {fileID: 4025358723685616027, guid: 9965326320481ff4d80588d18c7412d1,
+        type: 3}
+      propertyPath: leftHandTransform
+      value: 
+      objectReference: {fileID: 7758705902409763450}
     - target: {fileID: 4025358723685616028, guid: 9965326320481ff4d80588d18c7412d1,
         type: 3}
       propertyPath: m_LocalPosition.x
