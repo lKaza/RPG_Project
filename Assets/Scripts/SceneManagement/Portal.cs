@@ -25,7 +25,7 @@ namespace RPG.SceneManagement{
         // Start is called before the first frame update
     private void OnTriggerEnter(Collider other) {
         if(other.tag=="Player"){
-            
+             
             StartCoroutine(Transition());
         }
         

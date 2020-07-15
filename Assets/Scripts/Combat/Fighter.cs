@@ -10,15 +10,19 @@ namespace RPG.Combat
         {
             Animator myAnim;
             
-            [SerializeField] float weaponRange =2f;
-            [SerializeField] float TimeBetweenAttacks = 1f;
-            [SerializeField] int weaponDmg=5;
-            float timeSinceLastAttack = Mathf.Infinity;
+            [SerializeField] float TimeBetweenAttacks = 1f; 
+            [SerializeField] Transform handTransform = null;
+            [SerializeField] Weapon defaultWeapon = null;
+           
 
+            float timeSinceLastAttack = Mathf.Infinity;
             Transform target;
+            Weapon currentWeapon;
+
         private void Start() {
            
             myAnim = GetComponent<Animator>();
+            EquipWeapon(defaultWeapon);
            
         }
 
@@ -30,7 +34,7 @@ namespace RPG.Combat
 
                     GetComponent<Mover>().MoveTo(target.position,1f);
                     float distance = Vector3.Distance(transform.position,target.position);
-                    if(distance <=weaponRange)
+                    if(distance <=currentWeapon.GetWeapRange)
                 {
                     GetComponent<Mover>().Disengage();
                     if(timeSinceLastAttack>=TimeBetweenAttacks)
@@ -47,9 +51,7 @@ namespace RPG.Combat
         private void AttackBehaviour()
         {
             transform.LookAt(target);
-
             TriggerAttack();
-
         }
 
         private void TriggerAttack()
@@ -89,7 +91,17 @@ namespace RPG.Combat
         //Animation event
         void Hit(){
             if(target == null) return;
-                target.GetComponent<Health>().TakeDmg(weaponDmg);       
-            }                   
+                target.GetComponent<Health>().TakeDmg(currentWeapon.GetWeaponDamage);       
+            }
+
+        public void EquipWeapon(Weapon weapon)
+        {
+            currentWeapon = weapon;
+            weapon.Spawn(handTransform,myAnim);
+
         }
+
+        }
+
+        
 }
