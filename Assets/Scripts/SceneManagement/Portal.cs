@@ -14,16 +14,17 @@ namespace RPG.SceneManagement{
         enum DestinationIdentifier{
             A,B,C,D,E
         }
+#pragma warning disable 0649
         [SerializeField] int sceneIndex=0;
-        [SerializeField] Transform spawnPoint;
+        [SerializeField] Transform spawnPoint = null;
         [SerializeField] DestinationIdentifier currentPortal;
         [SerializeField] DestinationIdentifier destination;
-        [SerializeField] float fadeOutTime = 2f;
         [SerializeField] float fadeInTime = 2f;
         [SerializeField] float blackscreenTime = 0.3f;
+#pragma warning disable 0649
 
         // Start is called before the first frame update
-    private void OnTriggerEnter(Collider other) {
+        private void OnTriggerEnter(Collider other) {
         if(other.tag=="Player"){
              
             StartCoroutine(Transition());

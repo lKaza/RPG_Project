@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7235052635173108684
+--- !u!1 &14852604831873181
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7233530556201341994}
-  - component: {fileID: 7213447872760725538}
-  - component: {fileID: 7223349794895204364}
-  - component: {fileID: 7757720877106412610}
-  - component: {fileID: 8616554994464755696}
+  - component: {fileID: 14852606032548553}
+  - component: {fileID: 14852604831873169}
+  - component: {fileID: 14852604831873170}
   m_Layer: 0
-  m_Name: PickUpBow
+  m_Name: Bow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7233530556201341994
+--- !u!4 &14852606032548553
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7235052635173108684}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.996094, y: 0.005288401, z: 14.99823}
+  m_GameObject: {fileID: 14852604831873181}
+  m_LocalRotation: {x: 0.67711365, y: -0, z: -0, w: 0.73587847}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 6431568578058925563}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7213447872760725538
+  m_LocalEulerAnglesHint: {x: 85.23701, y: 0, z: 0}
+--- !u!33 &14852604831873169
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7235052635173108684}
+  m_GameObject: {fileID: 14852604831873181}
   m_Mesh: {fileID: 4300000, guid: 4f18c80df16a4ae4194559bba2f3ab9b, type: 3}
---- !u!23 &7223349794895204364
+--- !u!23 &14852604831873170
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7235052635173108684}
+  m_GameObject: {fileID: 14852604831873181}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -81,29 +79,63 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &7757720877106412610
+--- !u!1 &7532457475607213726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6431568578058925563}
+  - component: {fileID: 14852605103938094}
+  - component: {fileID: 14852605103938093}
+  m_Layer: 0
+  m_Name: PickUpBow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6431568578058925563
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7532457475607213726}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 14852606032548553}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &14852605103938094
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7235052635173108684}
+  m_GameObject: {fileID: 7532457475607213726}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57db8d11794ad954ba97a8ea146c019f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 11400000, guid: 630bfd7dd1ef7534e8dc5a341310b18d, type: 2}
---- !u!135 &8616554994464755696
+  weaponPrefab: {fileID: 11400000, guid: b71fd1dc151b94d47aa8e825bdeb3c4a, type: 2}
+  respawnTime: 3
+--- !u!135 &14852605103938093
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7235052635173108684}
+  m_GameObject: {fileID: 7532457475607213726}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.79675466
-  m_Center: {x: 0.21734604, y: 0.7914663, z: 0.00074676424}
+  m_Radius: 0.00001
+  m_Center: {x: 0, y: 0, z: 0}

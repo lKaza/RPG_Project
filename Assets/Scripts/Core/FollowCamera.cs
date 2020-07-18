@@ -6,7 +6,7 @@ namespace RPG.Core.Camera{
 
 public class FollowCamera : MonoBehaviour
 {
-        [SerializeField] Transform player;
+        [SerializeField] Transform player = null;
     
         // Start is called before the first frame update
         void Start()

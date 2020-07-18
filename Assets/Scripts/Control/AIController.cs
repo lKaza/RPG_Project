@@ -13,7 +13,7 @@ namespace RPG.Control{
     {
         [SerializeField] float chaseRange = 5f;
         [SerializeField] float suspicionTime = 6f;
-        [SerializeField] PatrolPath patrolPath;
+        [SerializeField] PatrolPath patrolPath = null;
         [SerializeField] float waypointTolerance = 1f;
         [SerializeField] float PatrolDwellTime = 5f;
         [Range (0,1)]
@@ -108,7 +108,6 @@ namespace RPG.Control{
 
         private bool InAttackRange()
         {
-           
             float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
             return  distanceToPlayer < chaseRange;
         }

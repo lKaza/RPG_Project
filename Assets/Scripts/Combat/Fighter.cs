@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using RPG.Core;
 using RPG.Movement;
+using RPG.Saving;
 using UnityEngine;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour,IAction
+    public class Fighter : MonoBehaviour,IAction , ISaveable
         {
             Animator myAnim;
             
@@ -14,16 +15,23 @@ namespace RPG.Combat
             [SerializeField] Transform rightHandTransform = null;
             [SerializeField] Transform leftHandTransform = null;
             [SerializeField] Weapon defaultWeapon = null;
+            
            
 
             float timeSinceLastAttack = Mathf.Infinity;
             Transform target;
-            Weapon currentWeapon;
+            public Weapon currentWeapon;
 
-        private void Start() {
-           
+        private void Awake() {
             myAnim = GetComponent<Animator>();
-            EquipWeapon(defaultWeapon);
+            if (currentWeapon == null)
+            {
+                EquipWeapon(defaultWeapon);
+            }
+        }
+
+        private void Start() {      
+              
            
         }
 
@@ -97,8 +105,7 @@ namespace RPG.Combat
                 
             }else
                 target.GetComponent<Health>().TakeDmg(currentWeapon.GetWeaponDamage);
-
-                       
+                               
             }
         void Shoot(){
             Hit();
@@ -106,12 +113,26 @@ namespace RPG.Combat
 
         public void EquipWeapon(Weapon weapon)
         {
+            
             currentWeapon = weapon;
             weapon.Spawn(leftHandTransform,rightHandTransform,myAnim);
 
         }
 
+        public object CaptureState()
+        {
+            print("salvando.."+currentWeapon.name);
+            return currentWeapon.name;
         }
+
+        public void RestoreState(object state)
+        {
+            string weaponName = (string)state;      
+          Weapon weapon = Resources.Load<Weapon>(weaponName);
+          print(weapon);
+          EquipWeapon(weapon);
+        }
+    }
 
         
 }

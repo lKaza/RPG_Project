@@ -6,24 +6,33 @@ namespace RPG.Combat{
 
 [CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/Make NewWeapon", order = 0)]
 public class Weapon : ScriptableObject {
+#pragma warning disable 0649
         [SerializeField] AnimatorOverrideController animatorOverride;
         [SerializeField] GameObject weaponPrefab = null;
         [SerializeField] int weaponDmg = 5;
         [SerializeField] float weaponRange = 2f;
         [SerializeField] bool isRightHanded = true;
         [SerializeField] Projectile projectile = null;
-
-
+#pragma warning disable 0649
+        
+        const string weaponName = "Weapon";
         public void Spawn(Transform leftHand ,Transform rightHand, Animator animator)
         {
+            DestroyOldWeapon(leftHand,rightHand);
             if(weaponPrefab != null)
             {
                 Transform handTransform = GetHandTransform(leftHand, rightHand);
-                Instantiate(weaponPrefab, handTransform);
+               GameObject weapon = Instantiate(weaponPrefab, handTransform);
+               weapon.name = weaponName;
             }
+            var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
             if (animatorOverride != null){
 
             animator.runtimeAnimatorController = animatorOverride;
+            }
+            else if(overrideController != null)
+            {
+                animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
             }
         }
 
@@ -42,6 +51,7 @@ public class Weapon : ScriptableObject {
         public float GetWeapRange{
             get { return weaponRange;}
         }
+
         public void LaunchProjectile(Transform leftHand, Transform rightHand,Transform target)
         {
             Projectile projectileInstance = Instantiate(projectile,GetHandTransform(leftHand,rightHand).position,Quaternion.identity);
@@ -50,6 +60,16 @@ public class Weapon : ScriptableObject {
         public bool HasProjectile()
         {
             return projectile != null;
+        }
+
+        public void DestroyOldWeapon(Transform leftHand,Transform rightHand){
+            Transform oldWeapon = rightHand.Find(weaponName);
+            if(oldWeapon == null){
+                oldWeapon = leftHand.Find(weaponName);
+            }
+            if( oldWeapon == null) return;
+            oldWeapon.name = "Destroying";
+            Destroy(oldWeapon.gameObject);
         }
     }
 }

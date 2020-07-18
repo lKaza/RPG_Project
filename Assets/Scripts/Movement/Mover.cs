@@ -10,14 +10,15 @@ namespace RPG.Movement{
 
 public class Mover : MonoBehaviour, IAction ,ISaveable
 {
-    [SerializeField] Transform target;
+#pragma warning disable 0649
+    
     [SerializeField] float maxSpeed = 5f;
     Animator myAnim;
     NavMeshAgent navMesh;
+#pragma warning disable 0649
 
-   
-    // Start is called before the first frame update
-    void Start()
+        // Start is called before the first frame update
+        void Start()
     {
         navMesh = GetComponent<NavMeshAgent>();
         myAnim = GetComponent<Animator>();
