@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using RPG.Core;
 using RPG.Movement;
+using RPG.Resources;
 using RPG.Saving;
 using UnityEngine;
 
@@ -101,12 +102,13 @@ namespace RPG.Combat
         void Hit(){
             if(target == null) return;
             if (currentWeapon.HasProjectile()){
-                currentWeapon.LaunchProjectile(leftHandTransform,rightHandTransform,target.transform);
+                currentWeapon.LaunchProjectile(leftHandTransform,rightHandTransform,target.transform,gameObject);
                 
             }else
-                target.GetComponent<Health>().TakeDmg(currentWeapon.GetWeaponDamage);
+                target.GetComponent<Health>().TakeDmg(currentWeapon.GetWeaponDamage,gameObject);
                                
             }
+            
         void Shoot(){
             Hit();
         }
@@ -118,18 +120,24 @@ namespace RPG.Combat
             weapon.Spawn(leftHandTransform,rightHandTransform,myAnim);
 
         }
+        public Health GetTarget()
+        {
+            if(target == null) return null;
+        
+            return target.GetComponent<Health>();
+        }
 
         public object CaptureState()
         {
-            print("salvando.."+currentWeapon.name);
+           
             return currentWeapon.name;
         }
 
         public void RestoreState(object state)
         {
             string weaponName = (string)state;      
-          Weapon weapon = Resources.Load<Weapon>(weaponName);
-          print(weapon);
+          Weapon weapon = UnityEngine.Resources.Load<Weapon>(weaponName);
+         
           EquipWeapon(weapon);
         }
     }

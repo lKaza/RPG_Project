@@ -52,10 +52,10 @@ public class Weapon : ScriptableObject {
             get { return weaponRange;}
         }
 
-        public void LaunchProjectile(Transform leftHand, Transform rightHand,Transform target)
+        public void LaunchProjectile(Transform leftHand, Transform rightHand,Transform target,GameObject instigator)
         {
             Projectile projectileInstance = Instantiate(projectile,GetHandTransform(leftHand,rightHand).position,Quaternion.identity);
-            projectileInstance.SetTarget(target,weaponDmg);
+            projectileInstance.SetTarget(target,weaponDmg,instigator);
         }
         public bool HasProjectile()
         {

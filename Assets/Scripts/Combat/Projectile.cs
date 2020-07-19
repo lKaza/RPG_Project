@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using RPG.Core;
+using RPG.Resources;
 using UnityEngine;
 
 namespace RPG.Combat{ 
@@ -13,6 +13,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] float maxLifeTime=3f;
     [SerializeField] GameObject[] destroyOnHit = null;
     [SerializeField] float lifeAfeterImpact = 2f;
+    GameObject instigator;
     Transform target = null;
     int damage = 0;
     // Start is called before the first frame update
@@ -38,11 +39,12 @@ public class Projectile : MonoBehaviour
         
     }
 
-    public void SetTarget(Transform newtarget,int damage)
+    public void SetTarget(Transform newtarget,int damage,GameObject instigator)
     {
        
         target = newtarget;
         this.damage +=damage;
+        this.instigator = instigator;
         Destroy(gameObject,maxLifeTime);
     }
 
@@ -65,7 +67,7 @@ public class Projectile : MonoBehaviour
                
             }
            
-            target.GetComponent<Health>().TakeDmg(damage);
+            target.GetComponent<Health>().TakeDmg(damage,instigator);
             speed = 0;
            
             foreach(GameObject toDestroy in destroyOnHit){

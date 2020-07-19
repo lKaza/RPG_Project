@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using RPG.Core;
 using RPG.Saving;
+using RPG.Stats;
 using UnityEngine;
 
-namespace RPG.Core{
+namespace RPG.Resources{
 
 
 public class Health : MonoBehaviour, ISaveable
@@ -17,6 +20,7 @@ public class Health : MonoBehaviour, ISaveable
     
         private void Awake()
         {
+            maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
             currentHealth = maxHealth;
             myAnim = GetComponent<Animator>();
         }
@@ -26,7 +30,7 @@ public class Health : MonoBehaviour, ISaveable
         {
             
         }
-        public void TakeDmg(int dmg)
+        public void TakeDmg(int dmg, GameObject instigator)
         {
             
             currentHealth = currentHealth - dmg;
@@ -34,8 +38,19 @@ public class Health : MonoBehaviour, ISaveable
             {
                 myAnim.ResetTrigger("resurrect");
                 Die();
+                GiveEXP(instigator);
             }
         }
+
+        private void GiveEXP(GameObject instigator)
+        {
+            if(!instigator.GetComponent<Experience>()){
+                return;
+            }
+            float exp = GetComponent<BaseStats>().GetStat(Stat.ExperienceReward);
+            instigator.GetComponent<Experience>().GainExperience(exp);
+        }
+
         public bool IsDead(){
            return isDead;
        }
@@ -49,13 +64,16 @@ public class Health : MonoBehaviour, ISaveable
 
         public object CaptureState()
         {
-            
-            return currentHealth;
+            int[] HPStats = {maxHealth,currentHealth};
+           
+            return HPStats;
         }
 
         public void RestoreState(object state)
         {
-            currentHealth = (int)state;
+            int[] hpStats = (int[])state;
+            maxHealth = hpStats[0];
+            currentHealth = hpStats[1];
             if(currentHealth>0){
                 isDead = false;
                 myAnim.SetTrigger("resurrect");
@@ -65,6 +83,10 @@ public class Health : MonoBehaviour, ISaveable
                 myAnim.ResetTrigger("resurrect");
                 Die();
             }
+        }
+        public float getPercentage(){
+           
+            return ((float)currentHealth/(float)maxHealth) *100;
         }
     }
 }
