@@ -1,4 +1,6 @@
 ﻿
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 namespace RPG.Stats{
 
@@ -7,26 +9,49 @@ public class Progression : ScriptableObject
 {
     [SerializeField] ProgressionCharacterClass[] characterClasses = null;
     
-   
+   Dictionary<CharacterClass, Dictionary<Stat, int[]>> lookupTable = null;
 
    public int GetStat(Stat stat,CharacterClass character, int level)
    {
-       foreach(ProgressionCharacterClass classes in characterClasses){
-           if(classes.getClases()!=character){
-              continue;              //return classes.getLevelHealth(level-1);
-           } return classes.GetStatList(stat,level);
-           
-       }
-       return 15;
+       BuildLookup();
+      int[] levels =  lookupTable[character][stat];
+
+      if(levels.Length < level){
+          return 0;
+      }
+      return levels[level - 1];
+ 
    }
 
+        private void BuildLookup()
+        {
+            if(lookupTable!= null) return;
+            lookupTable = new Dictionary<CharacterClass, Dictionary<Stat, int[]>>();
+            foreach (ProgressionCharacterClass classes in characterClasses)
+            {    
+                    var statTable = new Dictionary<Stat, int[]>();
 
-    [System.Serializable]
+                   
+               foreach(ProgressionCharacterStats progressionCharacterStats in classes.stats){
+                   statTable.Add(progressionCharacterStats.stat,progressionCharacterStats.levels);
+                   
+               }
+                lookupTable.Add(classes.CharacterClase, statTable);
+            }
+        }
+
+        private void FindStat(Stat stat, CharacterClass character, int level)
+        {
+          
+        }
+        
+
+        [System.Serializable]
     class ProgressionCharacterClass {
        
         
-        [SerializeField] CharacterClass CharacterClase;
-        [SerializeField] ProgressionCharacterStats[] stats = null;
+        public CharacterClass CharacterClase;
+        public ProgressionCharacterStats[] stats = null;
        
 
         public CharacterClass getClases(){

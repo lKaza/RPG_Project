@@ -543,6 +543,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -13.284835
       objectReference: {fileID: 0}
+    - target: {fileID: 5600475005593945422, guid: 22c0410626670c4409ec5f55e9556e6b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -12
+      objectReference: {fileID: 0}
     - target: {fileID: 8847042409082301239, guid: 22c0410626670c4409ec5f55e9556e6b,
         type: 3}
       propertyPath: startingLevel
