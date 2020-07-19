@@ -1,30 +1,31 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using RPG.Saving;
 using UnityEngine;
-namespace RPG.Resources{
+namespace RPG.Stats{
 
     public class Experience : MonoBehaviour, ISaveable
     {
-        [SerializeField] float experiencePoints = 0;
-        // Start is called before the first frame update
-        void Start()
-        {
-            
-        }
+        [SerializeField] int experiencePoints = 0;
 
-        // Update is called once per frame
+        
+        public event Action onExperienceGained;
+     
         void Update()
         {
-            
+         
         }
-        public void GainExperience(float experience){
+
+        public void GainExperience(int experience){
             experiencePoints += experience;
+            onExperienceGained();
 
         }
-        public float GetCurrentExp(){
+        public int GetCurrentExp(){
             return experiencePoints;
         }
+       
 
         public object CaptureState()
         {
@@ -33,8 +34,9 @@ namespace RPG.Resources{
 
         public void RestoreState(object state)
         {
-           experiencePoints = (float)state;
+           experiencePoints = (int)state;
         }
+
     }
 
 }

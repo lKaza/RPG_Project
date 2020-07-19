@@ -5,17 +5,20 @@ using RPG.Combat;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RPG.Resources
+namespace RPG.Stats
 {
 
     public class ExperienceDisplay : MonoBehaviour
     {
         [SerializeField] Text expValue;
+      
 
         Experience exp;
+    
         private void Awake()
         {
             exp = GameObject.FindWithTag("Player").GetComponent<Experience>();
+           
         }
 
 
@@ -23,6 +26,8 @@ namespace RPG.Resources
         private void Update()
         {
             expValue.text = String.Format("{0:0}", exp.GetCurrentExp().ToString());
+            
+         
         }
     }
 }

@@ -19,9 +19,15 @@ public class Progression : ScriptableObject
       if(levels.Length < level){
           return 0;
       }
-      return levels[level - 1];
+      return levels[level -1];
  
    }
+    public int GetLevels (Stat stat , CharacterClass characterClass){
+        BuildLookup();
+
+        int[] levels = lookupTable[characterClass][stat];
+        return levels.Length;
+    }
 
         private void BuildLookup()
         {
@@ -40,10 +46,7 @@ public class Progression : ScriptableObject
             }
         }
 
-        private void FindStat(Stat stat, CharacterClass character, int level)
-        {
-          
-        }
+    
         
 
         [System.Serializable]

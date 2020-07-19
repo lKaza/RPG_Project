@@ -12,17 +12,22 @@ namespace RPG.Resources{
 public class Health : MonoBehaviour, ISaveable
 {
         Animator myAnim;
-        [SerializeField] int maxHealth=100;
+        int maxHealth=-1;
         public int currentHealth;
         bool isDead = false;
 
         // Start is called before the first frame update
-    
-        private void Awake()
+    private void Awake() {
+            myAnim = GetComponent<Animator>();
+    }
+        private void Start()
         {
+            if(maxHealth  <0){
+
             maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
             currentHealth = maxHealth;
-            myAnim = GetComponent<Animator>();
+            
+            }
         }
 
         // Update is called once per frame
@@ -44,11 +49,12 @@ public class Health : MonoBehaviour, ISaveable
 
         private void GiveEXP(GameObject instigator)
         {
-            if(!instigator.GetComponent<Experience>()){
+            Experience experience = instigator.GetComponent<Experience>();
+            if(experience == null){
                 return;
             }
-            float exp = GetComponent<BaseStats>().GetStat(Stat.ExperienceReward);
-            instigator.GetComponent<Experience>().GainExperience(exp);
+            
+            experience.GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
         }
 
         public bool IsDead(){
@@ -85,7 +91,7 @@ public class Health : MonoBehaviour, ISaveable
             }
         }
         public float getPercentage(){
-           
+           maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
             return ((float)currentHealth/(float)maxHealth) *100;
         }
     }
