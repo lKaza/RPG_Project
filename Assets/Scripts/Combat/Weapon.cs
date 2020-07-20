@@ -9,10 +9,12 @@ public class Weapon : ScriptableObject {
 #pragma warning disable 0649
         [SerializeField] AnimatorOverrideController animatorOverride;
         [SerializeField] GameObject weaponPrefab = null;
-        [SerializeField] int weaponDmg = 5;
+        [SerializeField] float weaponDmg = 5;
+        [SerializeField] float percentageBonus = 0;
         [SerializeField] float weaponRange = 2f;
         [SerializeField] bool isRightHanded = true;
         [SerializeField] Projectile projectile = null;
+        
 #pragma warning disable 0649
         
         const string weaponName = "Weapon";
@@ -45,17 +47,20 @@ public class Weapon : ScriptableObject {
             return handTransform;
         }
 
-        public int GetWeaponDamage{
+        public float GetWeaponDamage{
             get {return weaponDmg;}
         }
         public float GetWeapRange{
             get { return weaponRange;}
         }
+        public float GetPercentageBonus{
+            get { return percentageBonus;}
+        }
 
-        public void LaunchProjectile(Transform leftHand, Transform rightHand,Transform target,GameObject instigator)
+        public void LaunchProjectile(Transform leftHand, Transform rightHand,Transform target,GameObject instigator, float calculatedDmg)
         {
             Projectile projectileInstance = Instantiate(projectile,GetHandTransform(leftHand,rightHand).position,Quaternion.identity);
-            projectileInstance.SetTarget(target,weaponDmg,instigator);
+            projectileInstance.SetTarget(target,calculatedDmg,instigator);
         }
         public bool HasProjectile()
         {
@@ -71,5 +76,6 @@ public class Weapon : ScriptableObject {
             oldWeapon.name = "Destroying";
             Destroy(oldWeapon.gameObject);
         }
+
     }
 }

@@ -12,7 +12,7 @@ public class EnemyHealthDisplay : MonoBehaviour
         [SerializeField] Text healthValue;
 
         Fighter health;
-        private void Awake()
+        private void Start()
         {
             health = GameObject.FindWithTag("Player").GetComponent<Fighter>();
         }
@@ -29,7 +29,10 @@ public class EnemyHealthDisplay : MonoBehaviour
                 healthValue.text = "N/A";
                 return;
             }
-            healthValue.text = String.Format("{0:0}%", health.GetComponent<Fighter>().GetTarget().GetComponent<Health>().getPercentage().ToString());
+           
+            healthValue.text = String.Format("{1}/{2} ({0:0})%", health.GetComponent<Fighter>().GetTarget().GetComponent<Health>().getPercentage().ToString(),
+            health.GetComponent<Fighter>().GetTarget().GetComponent<Health>().getCurrentHP().ToString(),
+            health.GetComponent<Fighter>().GetTarget().GetComponent<Health>().getMaxHP().ToString());
 
         }
     

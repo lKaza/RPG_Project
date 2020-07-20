@@ -4,11 +4,12 @@ using RPG.Core;
 using RPG.Movement;
 using RPG.Resources;
 using RPG.Saving;
+using RPG.Stats;
 using UnityEngine;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour,IAction , ISaveable
+    public class Fighter : MonoBehaviour,IAction , ISaveable, IModifierProvider
         {
             Animator myAnim;
             
@@ -57,6 +58,7 @@ namespace RPG.Combat
                 
             
         }
+       
 
         private void AttackBehaviour()
         {
@@ -92,6 +94,7 @@ namespace RPG.Combat
             target = null;
         }
 
+
         private void TriggerStopAttacking()
         {
             myAnim.ResetTrigger("Attack");
@@ -101,11 +104,12 @@ namespace RPG.Combat
         //Animation event
         void Hit(){
             if(target == null) return;
+            float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
             if (currentWeapon.HasProjectile()){
-                currentWeapon.LaunchProjectile(leftHandTransform,rightHandTransform,target.transform,gameObject);
+                currentWeapon.LaunchProjectile(leftHandTransform,rightHandTransform,target.transform,gameObject,damage);
                 
             }else
-                target.GetComponent<Health>().TakeDmg(currentWeapon.GetWeaponDamage,gameObject);
+                target.GetComponent<Health>().TakeDmg(damage,gameObject);
                                
             }
             
@@ -139,6 +143,23 @@ namespace RPG.Combat
           Weapon weapon = UnityEngine.Resources.Load<Weapon>(weaponName);
          
           EquipWeapon(weapon);
+        }
+
+       
+        public IEnumerable<float> GetPercentageModifiers(Stat stat)
+        {
+            if(stat == Stat.Damage){
+
+            yield return currentWeapon.GetPercentageBonus;
+            }
+        }
+
+
+        public IEnumerable<float> GetAdditiveModifers(Stat stat)
+        {
+            if(stat == Stat.Damage){
+                yield return currentWeapon.GetWeaponDamage;
+            }
         }
     }
 

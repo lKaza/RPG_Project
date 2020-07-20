@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] float lifeAfeterImpact = 2f;
     GameObject instigator;
     Transform target = null;
-    int damage = 0;
+    float damage = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +39,7 @@ public class Projectile : MonoBehaviour
         
     }
 
-    public void SetTarget(Transform newtarget,int damage,GameObject instigator)
+    public void SetTarget(Transform newtarget,float damage,GameObject instigator)
     {
        
         target = newtarget;

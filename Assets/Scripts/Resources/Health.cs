@@ -12,8 +12,8 @@ namespace RPG.Resources{
 public class Health : MonoBehaviour, ISaveable
 {
         Animator myAnim;
-        int maxHealth=-1;
-        public int currentHealth;
+        float maxHealth=-1;
+        public float currentHealth;
         bool isDead = false;
 
         // Start is called before the first frame update
@@ -22,22 +22,19 @@ public class Health : MonoBehaviour, ISaveable
     }
         private void Start()
         {
+           GetComponent<BaseStats>().onLevelUp += LevelUpRegen;
             if(maxHealth  <0){
 
             maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
             currentHealth = maxHealth;
             
             }
+            
         }
 
-        // Update is called once per frame
-        void Update()
+        public void TakeDmg(float dmg, GameObject instigator)
         {
-            
-        }
-        public void TakeDmg(int dmg, GameObject instigator)
-        {
-            
+           
             currentHealth = currentHealth - dmg;
             if(currentHealth<=0 && !isDead)
             {
@@ -47,6 +44,11 @@ public class Health : MonoBehaviour, ISaveable
             }
         }
 
+        private void Update() {
+            if(isDead){
+                currentHealth = 0;
+            }
+        }
         private void GiveEXP(GameObject instigator)
         {
             Experience experience = instigator.GetComponent<Experience>();
@@ -70,14 +72,14 @@ public class Health : MonoBehaviour, ISaveable
 
         public object CaptureState()
         {
-            int[] HPStats = {maxHealth,currentHealth};
+            float[] HPStats = {maxHealth,currentHealth};
            
             return HPStats;
         }
 
         public void RestoreState(object state)
         {
-            int[] hpStats = (int[])state;
+            float[] hpStats = (float[])state;
             maxHealth = hpStats[0];
             currentHealth = hpStats[1];
             if(currentHealth>0){
@@ -87,12 +89,24 @@ public class Health : MonoBehaviour, ISaveable
             if (currentHealth <= 0 && !isDead)
             {
                 myAnim.ResetTrigger("resurrect");
+                currentHealth =0;
                 Die();
             }
         }
         public float getPercentage(){
            maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
             return ((float)currentHealth/(float)maxHealth) *100;
+        }
+        public void LevelUpRegen(){
+
+            currentHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
+            
+        }
+        public float getCurrentHP(){
+            return currentHealth;
+        }
+        public float getMaxHP(){
+            return maxHealth;
         }
     }
 }

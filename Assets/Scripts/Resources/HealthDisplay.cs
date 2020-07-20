@@ -23,7 +23,7 @@ namespace RPG.Resources{
             todecimal = Math.Truncate(todecimal);
            
 
-            healthValue.text = String.Format("{0:0}%", todecimal.ToString());
+            healthValue.text = String.Format("{1}/{2} ({0:0})%", todecimal.ToString(),health.getCurrentHP().ToString(),health.getMaxHP().ToString());
         }
     }
 }
