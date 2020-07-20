@@ -26,13 +26,13 @@ namespace RPG.Combat
 
         private void Awake() {
             myAnim = GetComponent<Animator>();
+        }
+
+        private void Start() {      
             if (currentWeapon == null)
             {
                 EquipWeapon(defaultWeapon);
             }
-        }
-
-        private void Start() {      
               
            
         }

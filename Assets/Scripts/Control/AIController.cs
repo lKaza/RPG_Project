@@ -27,13 +27,14 @@ namespace RPG.Control{
         float timeScouting = 0;
         int currentWaypointIndex = 0;
         
-
-        
-    private void Start() {
-        guardPosition = transform.position;
+    private void Awake() {
         mover = GetComponent<Mover>();
         fighter = GetComponent<Fighter>();
         player = GameObject.FindGameObjectWithTag("Player");
+    }
+        
+    private void Start() {
+        guardPosition = transform.position;
     }
 
     private void Update()

@@ -12,7 +12,7 @@ public class EnemyHealthDisplay : MonoBehaviour
         [SerializeField] Text healthValue;
 
         Fighter health;
-        private void Start()
+        private void Awake()
         {
             health = GameObject.FindWithTag("Player").GetComponent<Fighter>();
         }

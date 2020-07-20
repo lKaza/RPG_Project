@@ -17,12 +17,12 @@ public class Health : MonoBehaviour, ISaveable
         bool isDead = false;
 
         // Start is called before the first frame update
-    private void Awake() {
-            myAnim = GetComponent<Animator>();
-    }
+        private void Awake() {
+                myAnim = GetComponent<Animator>();
+        }
+        
         private void Start()
         {
-           GetComponent<BaseStats>().onLevelUp += LevelUpRegen;
             if(maxHealth  <0){
 
             maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
@@ -30,6 +30,13 @@ public class Health : MonoBehaviour, ISaveable
             
             }
             
+        }
+        private void OnEnable() {
+           GetComponent<BaseStats>().onLevelUp += LevelUpRegen;
+            
+        }
+        private void OnDisable() {
+            GetComponent<BaseStats>().onLevelUp -= LevelUpRegen;
         }
 
         public void TakeDmg(float dmg, GameObject instigator)

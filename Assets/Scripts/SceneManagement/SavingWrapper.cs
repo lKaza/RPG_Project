@@ -17,9 +17,10 @@ public class SavingWrapper : MonoBehaviour
     
     IEnumerator LoadLastScene()
     {
-            Fader fader = FindObjectOfType<Fader>();
-            fader.FadeOutInmediate();
+            
            yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
+           Fader fader = FindObjectOfType<Fader>();
+           fader.FadeOutInmediate();
            yield return fader.FadeIn(fadeInTime);
             
     }

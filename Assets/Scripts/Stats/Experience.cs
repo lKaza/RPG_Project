@@ -11,11 +11,6 @@ namespace RPG.Stats{
 
         
         public event Action onExperienceGained;
-     
-        void Update()
-        {
-         
-        }
 
         public void GainExperience(float experience){
             experiencePoints += experience;

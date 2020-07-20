@@ -18,7 +18,7 @@ public class Mover : MonoBehaviour, IAction ,ISaveable
 #pragma warning disable 0649
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
     {
         navMesh = GetComponent<NavMeshAgent>();
         myAnim = GetComponent<Animator>();
@@ -70,10 +70,10 @@ public class Mover : MonoBehaviour, IAction ,ISaveable
         public void RestoreState(object state)
         {
             Dictionary<string, object> data = (Dictionary<string, object>)state;
-           GetComponent<NavMeshAgent>().enabled = false;
+           navMesh.enabled = false;
            transform.position = ((SerializableVector3)data["position"]).ToVector();
            transform.eulerAngles = ((SerializableVector3)data["rotation"]).ToVector();
-            GetComponent<NavMeshAgent>().enabled = true;
+            navMesh.enabled = true;
         }
         // struct save/load data method
         /* struct MoverSaveData
