@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameDevTV.Utils;
 using RPG.Core;
 using RPG.Saving;
 using RPG.Stats;
@@ -12,25 +13,27 @@ namespace RPG.Resources{
 public class Health : MonoBehaviour, ISaveable
 {
         Animator myAnim;
-        float maxHealth=-1;
+        LazyValue<float> maxHealth;
         public float currentHealth;
         bool isDead = false;
 
         // Start is called before the first frame update
         private void Awake() {
                 myAnim = GetComponent<Animator>();
+                maxHealth = new LazyValue<float>(GetInitialHealth);
+                
         }
         
-        private void Start()
-        {
-            if(maxHealth  <0){
-
-            maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
-            currentHealth = maxHealth;
-            
-            }
-            
+        private float GetInitialHealth()
+        { 
+            return GetComponent<BaseStats>().GetStat(Stat.Health);
         }
+
+        private void Start() {
+            maxHealth.ForceInit();
+            currentHealth = maxHealth.value;
+        }
+
         private void OnEnable() {
            GetComponent<BaseStats>().onLevelUp += LevelUpRegen;
             
@@ -79,7 +82,7 @@ public class Health : MonoBehaviour, ISaveable
 
         public object CaptureState()
         {
-            float[] HPStats = {maxHealth,currentHealth};
+            float[] HPStats = {maxHealth.value,currentHealth};
            
             return HPStats;
         }
@@ -87,7 +90,7 @@ public class Health : MonoBehaviour, ISaveable
         public void RestoreState(object state)
         {
             float[] hpStats = (float[])state;
-            maxHealth = hpStats[0];
+            maxHealth.value = hpStats[0];
             currentHealth = hpStats[1];
             if(currentHealth>0){
                 isDead = false;
@@ -101,8 +104,8 @@ public class Health : MonoBehaviour, ISaveable
             }
         }
         public float getPercentage(){
-           maxHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
-            return ((float)currentHealth/(float)maxHealth) *100;
+           maxHealth.value = GetComponent<BaseStats>().GetStat(Stat.Health);
+            return ((float)currentHealth/(float)maxHealth.value) *100;
         }
         public void LevelUpRegen(){
 
@@ -113,7 +116,7 @@ public class Health : MonoBehaviour, ISaveable
             return currentHealth;
         }
         public float getMaxHP(){
-            return maxHealth;
+            return maxHealth.value;
         }
     }
 }

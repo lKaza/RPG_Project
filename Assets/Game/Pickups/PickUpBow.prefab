@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 11400000, guid: b71fd1dc151b94d47aa8e825bdeb3c4a, type: 2}
   respawnTime: 3
+  cursorType: 4
 --- !u!135 &14852605103938093
 SphereCollider:
   m_ObjectHideFlags: 0
