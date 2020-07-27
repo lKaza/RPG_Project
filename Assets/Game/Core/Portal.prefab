@@ -109,6 +109,5 @@ MonoBehaviour:
   spawnPoint: {fileID: 4334210945552479784}
   currentPortal: 0
   destination: 0
-  fadeOutTime: 0.5
-  fadeInTime: 1
+  fadeInTime: 10
   blackscreenTime: 0.3
