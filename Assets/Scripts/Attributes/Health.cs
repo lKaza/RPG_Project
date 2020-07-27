@@ -17,6 +17,7 @@ public class Health : MonoBehaviour, ISaveable
         LazyValue<float> maxHealth;
         public float currentHealth;
         [SerializeField] TakeDamageEvent takeDamage;
+        [SerializeField] UnityEvent Death;
         bool isDead = false;
 
         [System.Serializable]
@@ -87,7 +88,7 @@ public class Health : MonoBehaviour, ISaveable
        }
         private void Die()
         {
-            
+            Death.Invoke();
             isDead = true;
             myAnim.SetTrigger("isAlive");
             GetComponent<Scheduler>().CancelCurrentAction();
@@ -124,7 +125,7 @@ public class Health : MonoBehaviour, ISaveable
             maxHealth.value = GetComponent<BaseStats>().GetStat(Stat.Health);
             return ((float)currentHealth / (float)maxHealth.value);
         }
-        
+
         public void LevelUpRegen(){
 
             currentHealth = GetComponent<BaseStats>().GetStat(Stat.Health);

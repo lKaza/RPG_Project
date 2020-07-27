@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
 namespace RPG.Combat{
 
 [CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/Make NewWeapon", order = 0)]
@@ -60,6 +62,7 @@ public class Weapon : ScriptableObject {
         public void LaunchProjectile(Transform leftHand, Transform rightHand,Transform target,GameObject instigator, float calculatedDmg)
         {
             Projectile projectileInstance = Instantiate(projectile,GetHandTransform(leftHand,rightHand).position,Quaternion.identity);
+           
             projectileInstance.SetTarget(target,calculatedDmg,instigator);
         }
         public bool HasProjectile()
@@ -76,6 +79,6 @@ public class Weapon : ScriptableObject {
             oldWeapon.name = "Destroying";
             Destroy(oldWeapon.gameObject);
         }
-
+      
     }
 }

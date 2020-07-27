@@ -110,8 +110,10 @@ namespace RPG.Combat
             if (currentWeapon.value.HasProjectile()){
                 currentWeapon.value.LaunchProjectile(leftHandTransform,rightHandTransform,target.transform,gameObject,damage);
                 
-            }else
+            }else{
                 target.GetComponent<Health>().TakeDmg(damage,gameObject);
+             
+            }
                                
             }
             

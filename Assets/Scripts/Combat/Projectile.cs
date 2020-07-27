@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using RPG.Attributes;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RPG.Combat{ 
 public class Projectile : MonoBehaviour
 {
+    [SerializeField] UnityEvent ProjectileSounds;
     [SerializeField] float speed=5f;
     [SerializeField] bool homing;
     [SerializeField] GameObject hitEffect = null;
@@ -45,6 +47,7 @@ public class Projectile : MonoBehaviour
         target = newtarget;
         this.damage +=damage;
         this.instigator = instigator;
+       
         Destroy(gameObject,maxLifeTime);
     }
 
@@ -62,17 +65,21 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         
         if(target != null){
+            if(target.GetComponent<Health>().IsDead()){
+                    Destroy(gameObject, 2f);
+                return;
+            }
             if(hitEffect != null){
-                Instantiate(hitEffect,GetAimLocation(),transform.rotation);
-               
+                Instantiate(hitEffect,GetAimLocation(),transform.rotation);          
             }
            
             target.GetComponent<Health>().TakeDmg(damage,instigator);
             speed = 0;
-           
+                ProjectileSounds.Invoke();
             foreach(GameObject toDestroy in destroyOnHit){
                 Destroy(toDestroy);
             }
+                
             Destroy(gameObject,lifeAfeterImpact);
            
         }
