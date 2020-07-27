@@ -6,8 +6,9 @@ using RPG.Core;
 using RPG.Saving;
 using RPG.Stats;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace RPG.Resources{
+namespace RPG.Attributes{
 
 
 public class Health : MonoBehaviour, ISaveable
@@ -15,7 +16,16 @@ public class Health : MonoBehaviour, ISaveable
         Animator myAnim;
         LazyValue<float> maxHealth;
         public float currentHealth;
+        [SerializeField] TakeDamageEvent takeDamage;
         bool isDead = false;
+
+        [System.Serializable]
+        public class TakeDamageEvent : UnityEvent<float>
+        {
+
+        }
+
+
 
         // Start is called before the first frame update
         private void Awake() {
@@ -51,6 +61,9 @@ public class Health : MonoBehaviour, ISaveable
                 myAnim.ResetTrigger("resurrect");
                 Die();
                 GiveEXP(instigator);
+            }else{
+            takeDamage.Invoke(dmg);
+
             }
         }
 
@@ -104,9 +117,14 @@ public class Health : MonoBehaviour, ISaveable
             }
         }
         public float getPercentage(){
-           maxHealth.value = GetComponent<BaseStats>().GetStat(Stat.Health);
-            return ((float)currentHealth/(float)maxHealth.value) *100;
+          return GetFraction()*100;
         }
+
+        public float GetFraction(){
+            maxHealth.value = GetComponent<BaseStats>().GetStat(Stat.Health);
+            return ((float)currentHealth / (float)maxHealth.value);
+        }
+        
         public void LevelUpRegen(){
 
             currentHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
