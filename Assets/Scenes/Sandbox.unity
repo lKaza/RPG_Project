@@ -34713,6 +34713,11 @@ PrefabInstance:
       propertyPath: destination
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5925221845510425683, guid: 72b57083429d74445af8a8806a9a50ae,
+        type: 3}
+      propertyPath: blackscreenTime
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7626507513165894669, guid: 72b57083429d74445af8a8806a9a50ae,
         type: 3}
       propertyPath: m_Name
