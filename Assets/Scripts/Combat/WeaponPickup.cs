@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using RPG.Attributes;
 using RPG.Control;
 using UnityEngine;
 
@@ -9,7 +10,8 @@ namespace RPG.Combat{
 
 public class WeaponPickup : MonoBehaviour,IRaycastable
 {
-        [SerializeField] Weapon weaponPrefab = null;
+        [SerializeField] WeaponConfig weaponPrefab = null;
+        [SerializeField] float healthToRestore = 0;
         [SerializeField] float respawnTime = 3f;
         [SerializeField] CursorType cursorType;
 
@@ -22,7 +24,7 @@ public class WeaponPickup : MonoBehaviour,IRaycastable
         public bool HandleRaycast(PlayerController controller)
         {
             if(Input.GetMouseButtonDown(0)){
-                Pickup(controller.GetComponent<Fighter>());
+                Pickup(controller.gameObject);
             }  
             return true;
         }
@@ -31,16 +33,20 @@ public class WeaponPickup : MonoBehaviour,IRaycastable
         
         if(other.tag=="Player")
             {
-                Pickup(other.GetComponent<Fighter>());
+                Pickup(other.gameObject);
             }
 
         }
 
-        private void Pickup(Fighter other)
+        private void Pickup(GameObject subject)
         {
-           
+           if(weaponPrefab != null){
+            subject.GetComponent<Fighter>().EquipWeapon(weaponPrefab);
 
-            other.EquipWeapon(weaponPrefab);
+           }
+           if(healthToRestore>0){
+               subject.GetComponent<Health>().Heal(healthToRestore);
+           }
             StartCoroutine(Respawn());
             
         }

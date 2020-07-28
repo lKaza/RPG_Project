@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlueArrowBow
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 22100000, guid: 500078eaddbddb74a8b67fc8908bb2f7, type: 2}
-  weaponPrefab: {fileID: 1052360361200425040, guid: c6d9615cc97d3c247b4a39d7bbe7e65b,
+  weaponPrefab: {fileID: 2351521045059903891, guid: c6d9615cc97d3c247b4a39d7bbe7e65b,
     type: 3}
   weaponDmg: 20
   percentageBonus: 0

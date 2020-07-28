@@ -49,6 +49,16 @@ public class Health : MonoBehaviour, ISaveable
            GetComponent<BaseStats>().onLevelUp += LevelUpRegen;
             
         }
+
+        public void Heal(float healthToRestore)
+        {
+            
+            currentHealth+=healthToRestore;
+            if(currentHealth >= maxHealth.value){
+                currentHealth = maxHealth.value;
+            }
+        }
+
         private void OnDisable() {
             GetComponent<BaseStats>().onLevelUp -= LevelUpRegen;
         }

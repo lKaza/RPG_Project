@@ -23,6 +23,7 @@ namespace RPG.Control
         [SerializeField]  CursorMapping[] cursorMappings = null;
         [SerializeField] float navMeshProjection=1f;
         [SerializeField] float maxNavMeshPathLength = 40f;
+        [SerializeField] float raycastRadius = 1f;
 
         private static Ray GetClickRay()
         {
@@ -32,7 +33,7 @@ namespace RPG.Control
         // Update is called once per frame
         void Update()
         {
-            RaycastAllSorteds();
+            
             if(InteractWithUI()) {
                 SetCursor(CursorType.UI);
                 return;
@@ -79,7 +80,7 @@ namespace RPG.Control
 
         RaycastHit[] RaycastAllSorteds()
         {
-            RaycastHit[] hits = Physics.RaycastAll(GetClickRay());
+            RaycastHit[] hits = Physics.SphereCastAll(GetClickRay(),raycastRadius);
             float[] distances = new float[hits.Length]; 
             for(int i = 0 ; i<hits.Length ; i++){
                
@@ -97,6 +98,9 @@ namespace RPG.Control
             bool hasHit = RaycastNavMesh(out target);
             if (hasHit)
             {
+                if(!GetComponent<Mover>().CanMoveTo(target)){
+                    return false;
+                }
                 if (Input.GetMouseButton(0))
                 {    
                 GetComponent<Mover>().StartMoveAction(target,1f);            
@@ -117,29 +121,11 @@ namespace RPG.Control
                     return false;     
 
             target = navhit.position;
+            return true;
 
-            NavMeshPath path = new NavMeshPath();
-            bool hasPath = NavMesh.CalculatePath(transform.position,target,NavMesh.AllAreas,path);
-            if(!hasPath) return false;
-            if(path.status != NavMeshPathStatus.PathComplete) return false;
-            if(GetPathLength(path)> maxNavMeshPathLength) return false;
-            return true; 
           
         }
 
-        private float GetPathLength(NavMeshPath path)
-        {
-            float distance=0;
-            
-            if(path.corners.Length<2) return distance;
-            for(int i = 0; i<path.corners.Length -1; i++){
-                distance += Vector3.Distance(path.corners[i],path.corners[i+1]);
-            }
-            // foreach(Vector3 corner in path.corners){
-            //     distance +=Vector3.Distance(corner,transform.position);
-            // } mine
-            return distance;
-        }
 
         private CursorMapping GetCursorMapping(CursorType type)
         {

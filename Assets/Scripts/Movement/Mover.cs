@@ -13,6 +13,7 @@ public class Mover : MonoBehaviour, IAction ,ISaveable
 #pragma warning disable 0649
     
     [SerializeField] float maxSpeed = 5f;
+        [SerializeField] float maxNavMeshPathLength = 40f;
     Animator myAnim;
     NavMeshAgent navMesh;
 #pragma warning disable 0649
@@ -75,6 +76,46 @@ public class Mover : MonoBehaviour, IAction ,ISaveable
            transform.eulerAngles = ((SerializableVector3)data["rotation"]).ToVector();
             navMesh.enabled = true;
         }
+
+
+        public bool CanMoveTo(Vector3 target){
+            
+            NavMeshPath path = new NavMeshPath();
+            bool hasPath = NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path);
+            if (!hasPath) return false;
+            if (path.status != NavMeshPathStatus.PathComplete) return false;
+            if (GetPathLength(path) > maxNavMeshPathLength) return false;
+            return true;
+        }
+
+        private float GetPathLength(NavMeshPath path)
+        {
+            float distance = 0;
+
+            if (path.corners.Length < 2) return distance;
+            for (int i = 0; i < path.corners.Length - 1; i++)
+            {
+                distance += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+            }
+            // foreach(Vector3 corner in path.corners){
+            //     distance +=Vector3.Distance(corner,transform.position);
+            // } mine
+            return distance;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
         // struct save/load data method
         /* struct MoverSaveData
         {
@@ -95,5 +136,3 @@ public class Mover : MonoBehaviour, IAction ,ISaveable
          transform.eulerAngles = data.rotation.ToVector();
          GetComponent<NavMeshAgent>().enabled = true;
         */
-    }
-}

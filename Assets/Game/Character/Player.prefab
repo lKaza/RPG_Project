@@ -1098,6 +1098,47 @@ Transform:
   m_Father: {fileID: 1714584509540296075}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1170366815
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4851946203885489736}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.94, z: 0}
+--- !u!114 &-79126355895606261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4851946203885489736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf8bbb24f3d4db42b92f0009dc64f1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorMappings:
+  - type: 0
+    texture: {fileID: 2800000, guid: 21628736160fcc9488493401da3ef621, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 1
+    texture: {fileID: 2800000, guid: 2e71a8202d3b4a3448ec85ced5a40265, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 2
+    texture: {fileID: 2800000, guid: 2d18e23e3ce249b4489b8bcdd02d3f48, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 3
+    texture: {fileID: 2800000, guid: 96d4bfdb0d6d8c042bf8fccf6524d239, type: 3}
+    hotspot: {x: 0, y: 0}
+  navMeshProjection: 1
+  maxNavMeshPathLength: 40
 --- !u!1 &5001170286272795261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1979,45 +2020,6 @@ Transform:
   m_Father: {fileID: 1412998744317730972}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1170366815
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4851946203885489736}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.2
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.94, z: 0}
---- !u!114 &-79126355895606261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4851946203885489736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddf8bbb24f3d4db42b92f0009dc64f1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorMappings:
-  - type: 0
-    texture: {fileID: 2800000, guid: 21628736160fcc9488493401da3ef621, type: 3}
-    hotspot: {x: 0, y: 0}
-  - type: 1
-    texture: {fileID: 2800000, guid: 2e71a8202d3b4a3448ec85ced5a40265, type: 3}
-    hotspot: {x: 0, y: 0}
-  - type: 2
-    texture: {fileID: 2800000, guid: 2d18e23e3ce249b4489b8bcdd02d3f48, type: 3}
-    hotspot: {x: 0, y: 0}
-  - type: 3
-    texture: {fileID: 2800000, guid: 96d4bfdb0d6d8c042bf8fccf6524d239, type: 3}
-    hotspot: {x: 0, y: 0}
 --- !u!1 &8437418142262575783
 GameObject:
   m_ObjectHideFlags: 0
@@ -2259,6 +2261,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1217452519289858373, guid: 9965326320481ff4d80588d18c7412d1,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3978350662153507880, guid: 9965326320481ff4d80588d18c7412d1,
         type: 3}
       propertyPath: characterClass
@@ -2327,6 +2334,12 @@ PrefabInstance:
       propertyPath: leftHandTransform
       value: 
       objectReference: {fileID: 7758705902409763450}
+    - target: {fileID: 4025358723685616027, guid: 9965326320481ff4d80588d18c7412d1,
+        type: 3}
+      propertyPath: defaultWeaponConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: fddeb54bbd1684d428236bd7b6f094a5,
+        type: 2}
     - target: {fileID: 4025358723685616028, guid: 9965326320481ff4d80588d18c7412d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2386,6 +2399,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Speed
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7235065281385882174, guid: 9965326320481ff4d80588d18c7412d1,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8800965584546857555, guid: 9965326320481ff4d80588d18c7412d1,
         type: 3}

@@ -182,7 +182,7 @@ PrefabInstance:
     - target: {fileID: 1217452519289858373, guid: 9965326320481ff4d80588d18c7412d1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3978350662153507880, guid: 9965326320481ff4d80588d18c7412d1,
         type: 3}
@@ -196,8 +196,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4025358723685616024, guid: 9965326320481ff4d80588d18c7412d1,
         type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4025358723685616024, guid: 9965326320481ff4d80588d18c7412d1,
+        type: 3}
       propertyPath: maxHealth
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4025358723685616024, guid: 9965326320481ff4d80588d18c7412d1,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4025358723685616024, guid: 9965326320481ff4d80588d18c7412d1,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4025358723685616024, guid: 9965326320481ff4d80588d18c7412d1,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: -3318830905410333337}
+    - target: {fileID: 4025358723685616024, guid: 9965326320481ff4d80588d18c7412d1,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: Aggro
+      objectReference: {fileID: 0}
+    - target: {fileID: 4025358723685616024, guid: 9965326320481ff4d80588d18c7412d1,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4025358723685616026, guid: 9965326320481ff4d80588d18c7412d1,
         type: 3}
@@ -248,6 +278,12 @@ PrefabInstance:
       propertyPath: rightHandTransform
       value: 
       objectReference: {fileID: 6857521558831106013}
+    - target: {fileID: 4025358723685616027, guid: 9965326320481ff4d80588d18c7412d1,
+        type: 3}
+      propertyPath: defaultWeaponConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: fddeb54bbd1684d428236bd7b6f094a5,
+        type: 2}
     - target: {fileID: 4025358723685616028, guid: 9965326320481ff4d80588d18c7412d1,
         type: 3}
       propertyPath: m_LocalPosition.x
